@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Организатор</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Организатор</h1>
+<form th:action="@{/organizer/{id}(id=${organizer.id})}" method="post">
+    <label for="logistics_specialist">Специалист по логистике:</label>
+    <input type="checkbox" name="logistics_specialist" id="logistics_specialist" th:checked="${organizer.logistics_specialist}">
+    <input type="text" name="face" placeholder="Лицо" th:value="${organizer.face}" required>
+    <select name="person" required>
+        <option selected disabled>Выберите человека</option>
+        <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.name} + ' ' + ${person.surname} + ' ' + ${person.patronymic}" th:selected="${person.id == organizer.person.id}"/>
+    </select>
+    <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

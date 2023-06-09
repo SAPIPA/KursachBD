@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Культурные сооружения</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Культурные сооружения</h1>
+<form th:action="@{/cultural-building/add}" method="post">
+    <input type="text" name="title" placeholder="Название" required>
+    <input type="text" name="address" placeholder="Адрес" required>
+    <input type="text" name="type" placeholder="Тип" required>
+    <input type="number" name="numberOfHalls" placeholder="Количество залов" required>
+    <input type="number" name="area" placeholder="Площадь" required>
+    <input type="number" name="screen_size" placeholder="Размер экрана" required>
+    <button type="submit">Добавить</button>
+</form>
+<form th:action="@{/cultural-building/filter}" method="get">
+    <input type="text" name="type" placeholder="Тип">
+    <input type="number" name="numberOfHalls" placeholder="Количество залов">
+    <button type="submit">Поиск</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Адрес</th>
+        <th>Тип</th>
+        <th>Количество залов</th>
+        <th>Площадь</th>
+        <th>Размер экрана</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="culturalBuilding : ${culturalBuildings}">
+        <td th:text="${culturalBuilding.title}"></td>
+        <td th:text="${culturalBuilding.address}"></td>
+        <td th:text="${culturalBuilding.type}"></td>
+        <td th:text="${culturalBuilding.numberOfHalls}"></td>
+        <td th:text="${culturalBuilding.area}"></td>
+        <td th:text="${culturalBuilding.screen_size}"></td>
+        <td>
+            <form th:action="@{/cultural-building/delete/{id}(id=${culturalBuilding.id})}" method="post">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{'/cultural-building/' + ${culturalBuilding.id}}">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

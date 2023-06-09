@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Культурное мероприятие</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Культурное мероприятие</h1>
+<form th:action="@{/cultural-event/{id}(id=${culturalEvent.id})}" method="post">
+  <input type="text" name="type" placeholder="Тип" th:value="${culturalEvent.type}" required>
+  <input type="number" name="number_of_tickets_sold" placeholder="Количество проданных билетов" th:value="${culturalEvent.number_of_tickets_sold}" required>
+  <input type="text" name="title" placeholder="Название" th:value="${culturalEvent.title}" required>
+  <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

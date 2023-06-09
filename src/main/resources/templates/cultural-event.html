@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Культурные мероприятия</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Культурные мероприятия</h1>
+<form th:action="@{/cultural-event/add}" method="post">
+  <input type="text" name="type" placeholder="Тип" required>
+  <input type="number" name="number_of_tickets_sold" placeholder="Количество проданных билетов" required>
+  <input type="text" name="title" placeholder="Название" required>
+  <button type="submit">Добавить</button>
+</form>
+<table>
+  <thead>
+  <tr>
+    <th>Тип</th>
+    <th>Количество проданных билетов</th>
+    <th>Название</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="culturalEvent : ${culturalEvents}">
+    <td th:text="${culturalEvent.type}"></td>
+    <td th:text="${culturalEvent.number_of_tickets_sold}"></td>
+    <td th:text="${culturalEvent.title}"></td>
+    <td>
+      <form th:action="@{/cultural-event/delete/{id}(id=${culturalEvent.id})}" method="post">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+    <td>
+      <form th:action="@{'/cultural-event/' + ${culturalEvent.id}}">
+        <button type="submit">Редактировать</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

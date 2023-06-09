@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Мероприятие/Сооружение</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Мероприятие/Сооружение</h1>
+<form th:action="@{/event-building/{id}(id=${eventBuilding.id})}" method="post">
+  <input type="date" name="date" th:value="${eventBuilding.date}" required>
+  <select name="culturalBuilding" required>
+    <option selected disabled>Выберите сооружение</option>
+    <option th:each="culturalBuilding : ${culturalBuildings}" th:value="${culturalBuilding.id}" th:text="${culturalBuilding.title}" th:selected="${culturalBuilding.id == eventBuilding.culturalBuilding.id}"/>
+  </select>
+  <select name="culturalEvent" required>
+    <option selected disabled>Выберите мероприятие</option>
+    <option th:each="culturalEvent : ${culturalEvents}" th:value="${culturalEvent.id}" th:text="${culturalEvent.title}" th:selected="${culturalEvent.id == eventBuilding.culturalEvent.id}"/>
+  </select>
+  <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

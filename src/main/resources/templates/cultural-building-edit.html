@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Культурное сооружение</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Культурное сооружение</h1>
+<form th:action="@{/cultural-building/{id}(id=${culturalBuilding.id})}" method="post">
+  <input type="text" name="title" placeholder="Название" th:value="${culturalBuilding.title}" required>
+  <input type="text" name="address" placeholder="Адрес" th:value="${culturalBuilding.address}" required>
+  <input type="text" name="type" placeholder="Тип" th:value="${culturalBuilding.type}" required>
+  <input type="number" name="number_of_halls" placeholder="Количество залов" th:value="${culturalBuilding.number_of_halls}" required>
+  <input type="number" name="area" placeholder="Площадь" th:value="${culturalBuilding.area}" required>
+  <input type="number" name="screen_size" placeholder="Размер экрана" th:value="${culturalBuilding.screen_size}" required>
+  <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

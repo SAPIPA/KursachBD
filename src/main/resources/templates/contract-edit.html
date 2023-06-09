@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Контракт</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Контракт</h1>
+<form th:action="@{/contract/{id}(id=${contract.id})}" method="post">
+  <input type="date" name="date" th:value="${contract.date}" required>
+  <input type="number" name="duration" th:value="${contract.duration}" required>
+  <select name="artist" required>
+    <option selected disabled>Выберите артиста</option>
+    <option th:each="artist : ${artists}" th:value="${artist.id}" th:text="${artist.person.name} + ' ' + ${artist.person.surname} + ' ' + ${artist.person.patronymic}" th:selected="${artist.id == contract.artist.id}"/>
+  </select>
+  <select name="impresario" required>
+    <option selected disabled>Выберите импресарио</option>
+    <option th:each="impresario : ${impresarios}" th:value="${impresario.id}" th:text="${impresario.person.name} + ' ' + ${impresario.person.surname} + ' ' + ${impresario.person.patronymic}" th:selected="${impresario.id == contract.impresario.id}"/>
+  </select>
+  <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

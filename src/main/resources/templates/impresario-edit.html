@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Импресарио</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Импресарио</h1>
+<form th:action="@{/impresario/{id}(id=${impresario.id})}" method="post">
+  <input type="number" name="rating" placeholder="Рейтинг" th:value="${impresario.rating}" required>
+  <input type="number" name="work_experience" placeholder="Опыт работы(года)" th:value="${impresario.work_experience}" required>
+  <select name="person" required>
+    <option selected disabled>Выберите человека</option>
+    <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.name} + ' ' + ${person.surname} + ' ' + ${person.patronymic}" th:selected="${person.id == impresario.person.id}"/>
+  </select>
+  <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

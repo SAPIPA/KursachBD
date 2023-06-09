@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Жанры</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Жанры</h1>
+<form th:action="@{/genre/add}" method="post">
+    <input type="text" name="title" placeholder="Название" required>
+    <input type="text" name="main_musical_instrument" placeholder="Основной музыкальный инструмент" required>
+    <button type="submit">Добавить</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Основной музыкальный инструмент</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="genre : ${genres}">
+        <td th:text="${genre.title}"></td>
+        <td th:text="${genre.main_musical_instrument}"></td>
+        <td>
+            <form th:action="@{/genre/delete/{id}(id=${genre.id})}" method="post">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{'/genre/' + ${genre.id}}">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

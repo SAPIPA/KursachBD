@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Жанр</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Жанр</h1>
+<form th:action="@{/genre/{id}(id=${genre.id})}" method="post">
+    <input type="text" name="title" placeholder="Название" th:value="${genre.title}" required>
+    <input type="text" name="main_musical_instrument" placeholder="Основной музыкальный инструмент" th:value="${genre.main_musical_instrument}" required>
+    <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

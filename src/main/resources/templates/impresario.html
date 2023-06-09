@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Импресарио</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Импресарио</h1>
+<form th:action="@{/impresario/add}" method="post">
+  <input type="number" name="rating" placeholder="Рейтинг" required>
+  <input type="number" name="work_experience" placeholder="Опыт работы(года)" required>
+  <select name="person" required>
+    <option selected disabled>Выберите человека</option>
+    <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.name} + ' ' + ${person.surname} + ' ' + ${person.patronymic}" />
+  </select>
+  <button type="submit">Добавить</button>
+</form>
+<form th:action="@{/impresario/filter}">
+  <select name="genre" required>
+    <option selected disabled>Выберите жанр</option>
+    <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.title}" />
+  </select>
+  <button type="submit">Поиск</button>
+</form>
+<table>
+  <thead>
+  <tr>
+    <th>Рейтинг</th>
+    <th>Опыт работы(года)</th>
+    <th>ФИО</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="impresario : ${impresarios}">
+    <td th:text="${impresario.rating}"></td>
+    <td th:text="${impresario.work_experience}"></td>
+    <td th:text="${impresario.person.name} + ' ' + ${impresario.person.surname} + ' ' + ${impresario.person.patronymic}"></td>
+    <td>
+      <form th:action="@{/impresario/delete/{id}(id=${impresario.id})}" method="post">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+    <td>
+      <form th:action="@{'/impresario/' + ${impresario.id}}">
+        <button type="submit">Редактировать</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

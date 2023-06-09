@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Артист</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Артист</h1>
+<form th:action="@{/artist/{id}(id=${artist.id})}" method="post">
+  <label for="national_artist">Народный артист:</label>
+  <input type="checkbox" name="national_artist" id="national_artist" th:checked="${artist.national_artist}">
+  <input type="text" name="foreign_language" placeholder="Иностранные языки" th:value="${artist.foreign_language}" required>
+  <input type="text" name="favorite_musical_instrument" placeholder="Любимый музыкальный инструмент" th:value="${artist.favorite_musical_instrument}" required>
+  <select name="person" required>
+    <option selected disabled>Выберите человека</option>
+    <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.name} + ' ' + ${person.surname} + ' ' + ${person.patronymic}" th:selected="${person.id == artist.person.id}"/>
+  </select>
+  <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

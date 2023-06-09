@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Артист/Мероприятие</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Артист/Мероприятие</h1>
+<form th:action="@{/artist-event/add}" method="post">
+  <label for="prize">Призёр:</label>
+  <input type="checkbox" name="prize" id="prize">
+  <select name="artist" required>
+    <option selected disabled>Выберите артиста</option>
+    <option th:each="artist : ${artists}" th:value="${artist.id}" th:text="${artist.person.name} + ' ' + ${artist.person.surname} + ' ' + ${artist.person.patronymic}" />
+  </select>
+  <select name="culturalEvent" required>
+    <option selected disabled>Выберите мероприятие</option>
+    <option th:each="culturalEvent : ${culturalEvents}" th:value="${culturalEvent.id}" th:text="${culturalEvent.title}" />
+  </select>
+  <button type="submit">Добавить</button>
+</form>
+<form th:action="@{/artist-event/filter}">
+  <select name="culturalEvent" required>
+    <option selected disabled>Выберите мероприятие</option>
+    <option th:each="culturalEvent : ${culturalEvents}" th:value="${culturalEvent.id}" th:text="${culturalEvent.title}" />
+  </select>
+  <button type="submit">Поиск</button>
+</form>
+<table>
+  <thead>
+  <tr>
+    <th>Призёр</th>
+    <th>Артист</th>
+    <th>Культурное мероприятие</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="artistEvent : ${artistEvents}">
+    <td th:text="${artistEvent.prize}"></td>
+    <td th:text="${artistEvent.artist.person.name} + ' ' + ${artistEvent.artist.person.surname} + ' ' + ${artistEvent.artist.person.patronymic}"></td>
+    <td th:text="${artistEvent.culturalEvent.title}"></td>
+
+    <td>
+      <form th:action="@{/artist-event/delete/{id}(id=${artistEvent.id})}" method="post">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+    <td>
+      <form th:action="@{'/artist-event/' + ${artistEvent.id}}">
+        <button type="submit">Редактировать</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

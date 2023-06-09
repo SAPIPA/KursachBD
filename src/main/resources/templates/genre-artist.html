@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Жанр/Артист</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Жанр/Артист</h1>
+<form th:action="@{/genre-artist/add}" method="post">
+    <input type="number" name="experience" placeholder="Опыт" required>
+    <select name="genre" required>
+        <option selected disabled>Выберите жанр</option>
+        <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.title}" />
+    </select>
+    <select name="artist" required>
+        <option selected disabled>Выберите артиста</option>
+        <option th:each="artist : ${artists}" th:value="${artist.id}" th:text="${artist.person.name} + ' ' + ${artist.person.surname} + ' ' + ${artist.person.patronymic}" />
+    </select>
+    <button type="submit">Добавить</button>
+</form>
+<form th:action="@{/genre-artist/filter}" method="get">
+    <select name="genre" required>
+        <option selected disabled>Выберите жанр</option>
+        <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.title}" />
+    </select>
+    <button type="submit">Поиск</button>
+</form>
+<form th:action="@{/genre-artist/many}">
+    <button type="submit">Давай</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Опыт(года)</th>
+        <th>Жанр</th>
+        <th>Артист</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="genreArtist : ${genreArtists}">
+        <td th:text="${genreArtist.experience}"></td>
+        <td th:text="${genreArtist.genre.title}"></td>
+        <td th:text="${genreArtist.artist.person.name} + ' ' + ${genreArtist.artist.person.surname} + ' ' + ${genreArtist.artist.person.patronymic}"></td>
+        <td>
+            <form th:action="@{/genre-artist/delete/{id}(id=${genreArtist.id})}" method="post">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{'/genre-artist/' + ${genreArtist.id}}">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

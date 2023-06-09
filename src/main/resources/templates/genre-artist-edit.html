@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Жанр/Артист</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Жанр/Артист</h1>
+<form th:action="@{/genre-artist/{id}(id=${genreArtist.id})}" method="post">
+    <input type="number" name="experience" placeholder="Опыт" th:value="${genreArtist.experience}" required>
+    <select name="genre" required>
+        <option selected disabled>Выберите жанр</option>
+        <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.title}" th:selected="${genre.id == genreArtist.genre.id}"/>
+    </select>
+    <select name="artist" required>
+        <option selected disabled>Выберите артиста</option>
+        <option th:each="artist : ${artists}" th:value="${artist.id}" th:text="${artist.person.name} + ' ' + ${artist.person.surname} + ' ' + ${artist.person.patronymic}" th:selected="${artist.id == genreArtist.artist.id}"/>
+    </select>
+    <button type="submit">Редактировать</button>
+</form>
+</body>
+</html>

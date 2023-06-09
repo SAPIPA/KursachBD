@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Контракты</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Контракты</h1>
+<form th:action="@{/contract/add}" method="post">
+  <input type="date" name="date" required>
+  <input type="number" name="duration" required>
+  <select name="artist" required>
+    <option selected disabled>Выберите артиста</option>
+    <option th:each="artist : ${artists}" th:value="${artist.id}" th:text="${artist.person.name} + ' ' + ${artist.person.surname} + ' ' + ${artist.person.patronymic}" />
+  </select>
+  <select name="impresario" required>
+    <option selected disabled>Выберите импресарио</option>
+    <option th:each="impresario : ${impresarios}" th:value="${impresario.id}" th:text="${impresario.person.name} + ' ' + ${impresario.person.surname} + ' ' + ${impresario.person.patronymic}" />
+  </select>
+  <button type="submit">Добавить</button>
+</form>
+<form th:action="@{/contract/filter}">
+  <select name="impresario" required>
+    <option selected disabled>Выберите импресарио</option>
+    <option th:each="impresario : ${impresarios}" th:value="${impresario.id}" th:text="${impresario.person.name} + ' ' + ${impresario.person.surname} + ' ' + ${impresario.person.patronymic}" />
+  </select>
+  <select name="artist" required>
+    <option selected disabled>Выберите артиста</option>
+    <option th:each="artist : ${artists}" th:value="${artist.id}" th:text="${artist.person.name} + ' ' + ${artist.person.surname} + ' ' + ${artist.person.patronymic}" />
+  </select>
+  <button type="submit">Поиск</button>
+</form>
+<table>
+  <thead>
+  <tr>
+    <th>Дата</th>
+    <th>Длительность(года)</th>
+    <th>Артист</th>
+    <th>Импресарио</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="contract : ${contracts}">
+    <td th:text="${contract.date}"></td>
+    <td th:text="${contract.duration}"></td>
+    <td th:text="${contract.artist.person.name} + ' ' + ${contract.artist.person.surname} + ' ' + ${contract.artist.person.patronymic}"></td>
+    <td th:text="${contract.impresario.person.name} + ' ' + ${contract.impresario.person.surname} + ' ' + ${contract.impresario.person.patronymic}"></td>
+    <td>
+      <form th:action="@{/contract/delete/{id}(id=${contract.id})}" method="post">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+    <td>
+      <form th:action="@{'/contract/' + ${contract.id}}">
+        <button type="submit">Редактировать</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

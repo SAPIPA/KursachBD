@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Артисты</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<nav>
+
+</nav>
+<h1>Артисты</h1>
+<form th:action="@{/artist/add}" method="post">
+    <label for="national_artist">Народный артист:</label>
+    <input type="checkbox" name="national_artist" id="national_artist">
+    <input type="text" name="foreign_language" placeholder="Иностранные языки" required>
+    <input type="text" name="favorite_musical_instrument" placeholder="Любимый музыкальный инструмент" required>
+    <select name="person" required>
+        <option selected disabled>Выберите человека</option>
+        <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.name} + ' ' + ${person.surname} + ' ' + ${person.patronymic}" />
+    </select>
+    <button type="submit">Добавить</button>
+</form>
+<form th:action="@{/artist/filter}" method="get">
+    <input type="date" name="minDate">
+    <input type="date" name="maxDate">
+    <button type="submit">Поиск</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Народный артист</th>
+        <th>Иностранные языки</th>
+        <th>Любимый музыкальный инструмент</th>
+        <th>ФИО</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="artist : ${artists}">
+        <td th:text="${artist.national_artist}"></td>
+        <td th:text="${artist.foreign_language}"></td>
+        <td th:text="${artist.favorite_musical_instrument}"></td>
+        <td th:text="${artist.person.name} + ' ' + ${artist.person.surname} + ' ' + ${artist.person.patronymic}"></td>
+        <td>
+            <form th:action="@{/artist/delete/{id}(id=${artist.id})}" method="post">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{'/artist/' + ${artist.id}}">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
